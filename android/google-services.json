@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "277221628763",
+    "project_id": "yat191",
+    "storage_bucket": "yat191.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277221628763:android:bfc83bedafacd05d3f587e",
+        "android_client_info": {
+          "package_name": "mo.ed.zeow.driver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADtw3Y7nGF-ADFSvSQhX_KQdzV8v-F2tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

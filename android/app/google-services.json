@@ -1,0 +1,100 @@
+{
+  "project_info": {
+    "project_number": "1074172982935",
+    "project_id": "zeow-transport",
+    "storage_bucket": "zeow-transport.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074172982935:android:45f1eadf0e43dbee23dbd2",
+        "android_client_info": {
+          "package_name": "mo.ed.zeow.transport.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074172982935-c7e1j73abv4ga0smeglpdd2h3nuq2r3e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mo.ed.zeow.transport.client",
+            "certificate_hash": "bf1aa2f259a0fcb96a52b1cba5f34fa5e80baf1c"
+          }
+        },
+        {
+          "client_id": "1074172982935-ehcvf75h19aj80nonmiiph0kqks9qd44.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mo.ed.zeow.transport.client",
+            "certificate_hash": "d796198a48928fa829187b81e9974626fe94b179"
+          }
+        },
+        {
+          "client_id": "1074172982935-k09p3ihcvafncnnh7lrn2ad5f99ct3th.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Jry1ODLWesaWRgADSCU1_GHbgPv3vZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074172982935-k09p3ihcvafncnnh7lrn2ad5f99ct3th.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074172982935:android:e03e7a8b480c37fd23dbd2",
+        "android_client_info": {
+          "package_name": "mo.ed.zeow.transport.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074172982935-l21gg2nk2odtq2k5eq4ft5u6jikvo6el.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mo.ed.zeow.transport.driver",
+            "certificate_hash": "d796198a48928fa829187b81e9974626fe94b179"
+          }
+        },
+        {
+          "client_id": "1074172982935-sr953fl0vsijk37e59oqct301l6olnk5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mo.ed.zeow.transport.driver",
+            "certificate_hash": "ddb06a529372ecb30dcaa693d1633646ee6b4b0b"
+          }
+        },
+        {
+          "client_id": "1074172982935-k09p3ihcvafncnnh7lrn2ad5f99ct3th.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Jry1ODLWesaWRgADSCU1_GHbgPv3vZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074172982935-k09p3ihcvafncnnh7lrn2ad5f99ct3th.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

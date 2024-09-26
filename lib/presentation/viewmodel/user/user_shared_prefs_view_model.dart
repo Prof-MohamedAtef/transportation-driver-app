@@ -5,9 +5,9 @@ import '../../../domain/usecases/sharedprefs/get_user_usecase.dart';
 import '../../../domain/usecases/sharedprefs/save_user_usecase.dart';
 
 class UserViewModel extends ChangeNotifier {
-  final SaveUserUseCase saveUserUseCase;
-  final GetUserUseCase getUserUseCase;
-  final ClearUserUseCase clearUserUseCase;
+  final SaveUserSharedPrefsUseCase saveUserUseCase;
+  final GetUserSharedPrefsUseCase getUserUseCase;
+  final ClearUserSharedPrefsUseCase clearUserUseCase;
 
   UserModel? _user;
 

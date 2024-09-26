@@ -6,6 +6,7 @@ import 'package:zeow_driver/presentation/widgets/custom_text_field_widget.dart';
 import 'package:zeow_driver/presentation/viewmodel/auth/auth_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../state/auth_state.dart';
 import '../widgets/flutter_toast_widget.dart';
@@ -123,7 +124,13 @@ class _SignInScreenState extends State<SignInPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
-                icon: const Icon(Icons.login, color: Colors.white),
+                icon:
+                SvgPicture.asset(
+                  'assets/images/google_logo.svg',
+                  height: 24, // Adjust size as needed
+                  width: 24,
+                )
+                ,
                 onPressed: () async {
                   // Call Google sign-in logic in the ViewModel
                   await authViewModel.signInWithGoogle();

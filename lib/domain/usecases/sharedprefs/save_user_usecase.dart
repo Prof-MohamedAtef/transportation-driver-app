@@ -1,10 +1,10 @@
 import '../../../data/models/user_model.dart';
-import '../../repositories/user_repository.dart';
+import '../../repositories/user_shared_prefs_repository.dart';
 
-class SaveUserUseCase {
-  final UserRepository userRepository;
+class SaveUserSharedPrefsUseCase {
+  final UserSharedPrefsRepository userRepository;
 
-  SaveUserUseCase(this.userRepository);
+  SaveUserSharedPrefsUseCase(this.userRepository);
 
   Future<void> call(UserModel user) async {
     return await userRepository.saveUser(user);

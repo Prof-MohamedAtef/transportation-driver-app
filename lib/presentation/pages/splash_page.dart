@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:zeow_driver/presentation/viewmodel/auth/auth_viewmodel.dart';
 
 import '../routes/routes.dart';
-import '../viewmodel/user/user_view_model.dart';
+import '../viewmodel/user/user_shared_prefs_view_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

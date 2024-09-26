@@ -6,6 +6,7 @@ import 'package:zeow_driver/presentation/pages/location_screen.dart';
 import 'package:zeow_driver/presentation/pages/onboading_page.dart';
 import 'package:zeow_driver/presentation/pages/sign_up_page.dart';
 import 'package:zeow_driver/presentation/pages/signin_page.dart';
+import 'package:zeow_driver/presentation/pages/update_user_profile.dart';
 import 'package:zeow_driver/presentation/pages/verification_phase_screen.dart';
 
 import '../pages/home_page.dart';
@@ -25,6 +26,7 @@ class AppRoutes {
   static const verificationScreen = '/Verify';
   static const addTripScreen = '/addTrip';
   static const addBusScreen = '/addBus';
+  static const updateProfileScreen = "/updateProfile";
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -50,8 +52,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const AddTripScreen());
       case addBusScreen:
         return MaterialPageRoute(builder: (_) => const AddBusScreen());
-      // case mapsScreen:
-      //   return MaterialPageRoute(builder: (_) => const MapScreen());
+      case updateProfileScreen:
+        return MaterialPageRoute(builder: (_) => const UpdateUserProfileScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

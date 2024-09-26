@@ -1,8 +1,8 @@
-import '../../../domain/repositories/user_repository.dart';
+import '../../../domain/repositories/user_shared_prefs_repository.dart';
 import '../../datasources/sharedprefs/shared_prefs_service.dart';
 import '../../models/user_model.dart';
 
-class UserRepositoryImpl implements UserRepository {
+class UserRepositoryImpl implements UserSharedPrefsRepository {
   final SharedPreferencesService sharedPreferencesService;
 
   UserRepositoryImpl(this.sharedPreferencesService);

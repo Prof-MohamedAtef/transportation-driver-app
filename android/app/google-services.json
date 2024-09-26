@@ -30,6 +30,22 @@
           }
         },
         {
+          "client_id": "1074172982935-er8ok6ajmhm0abcrjlev3tclm8028naj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mo.ed.zeow.transport.client",
+            "certificate_hash": "82df0cca2d97c8aaf947fff07b41160cc0b4cfd0"
+          }
+        },
+        {
+          "client_id": "1074172982935-ujnpp2dkj811v77m88kqbrc7pgnrpv1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mo.ed.zeow.transport.client",
+            "certificate_hash": "58df61675b4bc8d30165154dec4db0ad277ec7f8"
+          }
+        },
+        {
           "client_id": "1074172982935-k09p3ihcvafncnnh7lrn2ad5f99ct3th.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -58,6 +74,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1074172982935-3fd07dlo1f4to1sc1akfokl90hnd9afa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mo.ed.zeow.transport.driver",
+            "certificate_hash": "1b04611e8c7c8c1f8b66f7750b0d418e5c745081"
+          }
+        },
         {
           "client_id": "1074172982935-l21gg2nk2odtq2k5eq4ft5u6jikvo6el.apps.googleusercontent.com",
           "client_type": 1,

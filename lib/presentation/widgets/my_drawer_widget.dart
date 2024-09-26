@@ -4,6 +4,7 @@ import 'package:zeow_driver/presentation/routes/routes.dart';
 import 'package:zeow_driver/presentation/viewmodel/auth/auth_viewmodel.dart';
 
 import '../state/auth_state.dart';
+import '../viewmodel/user/user_shared_prefs_view_model.dart';
 
 class MyDrawerWidget extends StatelessWidget {
   const MyDrawerWidget({super.key});
@@ -16,7 +17,9 @@ class MyDrawerWidget extends StatelessWidget {
 
 Widget drawerWidget(BuildContext context) {
   final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
-  authViewModel.fetchCurrentUser();
+  final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+  userViewModel.loadUser();
+  // authViewModel.fetchCurrentUser();
   return Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
@@ -30,14 +33,14 @@ Widget drawerWidget(BuildContext context) {
               CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(
-                  authViewModel.user?.photoUrl ?? 'assets/images/my_pic.jpg',
+                  userViewModel.user?.photoUrl ?? 'assets/images/my_pic.jpg',
                 ),
               ),
               const SizedBox(
                 width: 10,
               ),
               Text(
-                authViewModel.user?.displayName ?? 'Guest',
+                userViewModel.user?.displayName ?? 'Guest',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -68,6 +71,25 @@ Widget drawerWidget(BuildContext context) {
           onTap: () {
             // Navigate to the Home page
             Navigator.pushNamed(context, AppRoutes.addTripScreen);
+          },
+        ),
+
+        ListTile(
+          leading: const Icon(Icons.payment),
+          title: const Text('Update Profile'),
+          onTap: () {
+            // Navigate to the Home page
+            Navigator.pushNamed(context, AppRoutes.updateProfileScreen);
+          },
+        ),
+
+        ListTile(
+          leading: const Icon(Icons.payment),
+          title: const Text('Sign Out'),
+          onTap: () {
+            // Navigate to the Home page
+            authViewModel.signOut();
+            Navigator.pushNamed(context, AppRoutes.splash);
           },
         ),
       ],

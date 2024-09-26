@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:zeow_driver/data/models/car/car_model.dart';
 import 'package:zeow_driver/presentation/routes/routes.dart';
-import 'package:zeow_driver/presentation/viewmodel/user/user_view_model.dart';
+import 'package:zeow_driver/presentation/viewmodel/user/user_shared_prefs_view_model.dart';
 import '../state/add_car_state.dart';
 import '../state/car_types_state.dart';
 import '../viewmodel/cars/add_cars_view_model.dart';

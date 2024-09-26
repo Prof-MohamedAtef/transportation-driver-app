@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../state/auth_state.dart';
-import '../user/user_view_model.dart';
+import '../user/user_shared_prefs_view_model.dart';
 import '/data/models/user_model.dart';
 import '../../../data/repositories/firebase/auth_repository.dart';
 
@@ -49,7 +49,8 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<void> signOut() async {
-    await _authRepository.signOut();
+    await _authRepository.signOut(); // remove user from Firebase
+    await _userViewModel.clearUser(); // remove user from SharedPrefs
     _state = AuthInitial();
     _user = null;
     notifyListeners();
@@ -69,11 +70,12 @@ class AuthViewModel extends ChangeNotifier {
           print(failure.message);
           _state = AuthFailure(failure.message); // or a custom error message
         },
-        (firebaseUser) {
+        (firebaseUser) async {
           // Handle the success case
           if (firebaseUser != null) {
             // Convert Firebase User to UserModel
             _user = UserModel.fromFirebaseUser(firebaseUser);
+            await _userViewModel.saveUser(_user!);
             _state = AuthSuccess(_user!); // Use the updated AuthSuccess
           } else {
             _state = AuthFailure("Google Sign-In failed");

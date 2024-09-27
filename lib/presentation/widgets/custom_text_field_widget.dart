@@ -23,6 +23,7 @@ bool isValidEmail(String email) {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  final TextEditingController nameCon = TextEditingController();
   final TextEditingController emailCon = TextEditingController();
   final TextEditingController passCon = TextEditingController();
   bool showPassword = false;

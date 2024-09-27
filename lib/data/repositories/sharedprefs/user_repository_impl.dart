@@ -1,6 +1,6 @@
 import '../../../domain/repositories/user_shared_prefs_repository.dart';
 import '../../datasources/sharedprefs/shared_prefs_service.dart';
-import '../../models/user_model.dart';
+import '../../models/firebase_user_model.dart';
 
 class UserRepositoryImpl implements UserSharedPrefsRepository {
   final SharedPreferencesService sharedPreferencesService;
@@ -8,12 +8,12 @@ class UserRepositoryImpl implements UserSharedPrefsRepository {
   UserRepositoryImpl(this.sharedPreferencesService);
 
   @override
-  Future<void> saveUser(UserModel user) async {
+  Future<void> saveUser(FirebaseUserModel user) async {
     await sharedPreferencesService.saveUser(user);
   }
 
   @override
-  Future<UserModel?> getUser() async {
+  Future<FirebaseUserModel?> getUser() async {
     return await sharedPreferencesService.getUser();
   }
 

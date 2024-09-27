@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:zeow_driver/presentation/routes/routes.dart';
 import 'package:provider/provider.dart';
+import 'package:zeow_driver/presentation/viewmodel/auth/system_auth_view_model.dart';
 import 'package:zeow_driver/presentation/viewmodel/cars/add_cars_view_model.dart';
 import 'package:zeow_driver/presentation/viewmodel/cars/get_cars_view_model.dart';
 import 'package:zeow_driver/presentation/viewmodel/location/location_viewmodel.dart';
@@ -16,6 +17,7 @@ import 'package:zeow_driver/presentation/viewmodel/trips/trips_viewmodel.dart';
 import 'package:zeow_driver/presentation/viewmodel/user/user_api_view_model.dart';
 import 'package:zeow_driver/presentation/viewmodel/user/user_shared_prefs_view_model.dart';
 
+import 'data/datasources/auth/register_user_api_service.dart';
 import 'data/datasources/cars/get_cars_api_service.dart';
 import 'data/datasources/location/location_service.dart';
 import 'data/datasources/sharedprefs/shared_prefs_service.dart';
@@ -23,6 +25,7 @@ import 'data/datasources/users/store_user_api_service.dart';
 import 'data/repositories/cars/cars_repository_impl.dart';
 import 'data/repositories/firebase/auth_repository.dart';
 import 'data/repositories/sharedprefs/user_repository_impl.dart';
+import 'data/repositories/users/register_api_repository_impl.dart';
 import 'data/repositories/users/user_api_repository_impl.dart';
 import 'data/responses/users/store_user_api_response.dart';
 import 'domain/etities/trip.dart';
@@ -32,6 +35,7 @@ import 'domain/usecases/cars/get_cars_use_case.dart';
 import 'domain/usecases/sharedprefs/clear_user_usecase.dart';
 import 'domain/usecases/sharedprefs/get_user_usecase.dart';
 import 'domain/usecases/sharedprefs/save_user_usecase.dart';
+import 'domain/usecases/users/register_user_api_use_case.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +64,12 @@ Future<void> main() async {
             ClearUserSharedPrefsUseCase(UserRepositoryImpl(SharedPreferencesService())),
           ),
         ),
+        ChangeNotifierProvider(
+            create: (context) => SystemAuthViewModel(
+                RegisterUserApiUseCase((RegisterApiRepositoryImpl(RegisterUserApiService()))),
+                Provider.of<UserViewModel>(context,
+                    listen: false)
+            )),
         // Create AuthViewModel after UserViewModel
         ChangeNotifierProvider<AuthViewModel>(
           create: (context) => AuthViewModel(

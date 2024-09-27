@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:zeow_driver/domain/repositories/user_api_repository.dart';
+import 'package:zeow_driver/domain/repositories/store_user_api_repository.dart';
 
 import '../../../data/responses/users/store_user_api_response.dart';
 
 class StoreUserApiUseCase {
-  final UserApiRepository userApiRepository;
+  final StoreUserApiRepository userApiRepository;
 
   StoreUserApiUseCase(this.userApiRepository);
 

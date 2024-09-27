@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../state/auth_state.dart';
 import '../user/user_shared_prefs_view_model.dart';
-import '/data/models/user_model.dart';
+import '/data/models/firebase_user_model.dart';
 import '../../../data/repositories/firebase/auth_repository.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -14,9 +14,9 @@ class AuthViewModel extends ChangeNotifier {
   AuthState _state = AuthInitial();
 
   AuthState get state => _state;
-  UserModel? _user;
+  FirebaseUserModel? _user;
 
-  UserModel? get user => _user;
+  FirebaseUserModel? get user => _user;
 
   bool get isLoggedIn => _user != null;
 
@@ -24,7 +24,7 @@ class AuthViewModel extends ChangeNotifier {
     _state = AuthLoading();
     notifyListeners();
     try {
-      UserModel? user = await _authRepository.signInWithEmail(email, password);
+      FirebaseUserModel? user = await _authRepository.signInWithEmail(email, password);
       if (user != null) {
         _state = AuthSuccess(user);
         // Save the user data to SharedPreferences via UserViewModel
@@ -40,7 +40,7 @@ class AuthViewModel extends ChangeNotifier {
     _state = AuthLoading();
     notifyListeners();
     try {
-      UserModel? user = await _authRepository.signUpWithEmail(email, password);
+      FirebaseUserModel? user = await _authRepository.signUpWithEmail(email, password);
       _state = AuthSuccess(user!);
     } catch (e) {
       _state = AuthFailure(e.toString());
@@ -74,7 +74,7 @@ class AuthViewModel extends ChangeNotifier {
           // Handle the success case
           if (firebaseUser != null) {
             // Convert Firebase User to UserModel
-            _user = UserModel.fromFirebaseUser(firebaseUser);
+            _user = FirebaseUserModel.fromFirebaseUser(firebaseUser);
             await _userViewModel.saveUser(_user!);
             _state = AuthSuccess(_user!); // Use the updated AuthSuccess
           } else {

@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class UserModel {
+class FirebaseUserModel {
   final String? uid;
   final String? email;
   final String displayName;
   final String? photoUrl;
 
-  UserModel({
+  FirebaseUserModel({
     required this.uid,
     required this.displayName,
     required this.email,
@@ -14,8 +14,8 @@ class UserModel {
   });
 
   // Factory constructor to map Firebase User to UserModel
-  factory UserModel.fromFirebaseUser(User user) {
-    return UserModel(
+  factory FirebaseUserModel.fromFirebaseUser(User user) {
+    return FirebaseUserModel(
       uid: user.uid,
       displayName: user.displayName ?? 'Anonymous',
       email: user.email ?? 'No email',

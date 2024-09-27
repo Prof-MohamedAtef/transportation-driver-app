@@ -10,6 +10,7 @@ import 'package:zeow_driver/presentation/pages/update_user_profile.dart';
 import 'package:zeow_driver/presentation/pages/verification_phase_screen.dart';
 
 import '../pages/home_page.dart';
+import '../pages/new_sign_up_screen.dart';
 import '../pages/splash_page.dart';
 import '../pages/trips_list_screen.dart';
 
@@ -33,7 +34,7 @@ class AppRoutes {
       case signInScreen:
         return MaterialPageRoute(builder: (_) => const SignInPage());
       case signUpScreen:
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
+        return MaterialPageRoute(builder: (_) => SignupScreen());
       case homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case onBoardingScreen:

@@ -109,7 +109,7 @@ class _UpdateUserProfileScreenState extends State<UpdateUserProfileScreen> {
                   // Call the ViewModel's saveUser method
                   userApiViewModel.saveUser(
                     firebaseUserId: firebaseUserId.toString(),
-                    email: "ahmed@gmail.com",
+                    email: email.toString(),
                     displayName: displayName.toString(),
                     password: password.toString(),
                     isVerified: isVerified,

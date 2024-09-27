@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../models/user_model.dart';
+import '../../models/firebase_user_model.dart';
 
 class SharedPreferencesService {
   static const String _userKey = 'user_data';
 
-  Future<void> saveUser(UserModel user) async {
+  Future<void> saveUser(FirebaseUserModel user) async {
     final prefs = await SharedPreferences.getInstance();
     final userData = jsonEncode({
       'uid': user.uid,
@@ -18,13 +18,13 @@ class SharedPreferencesService {
     await prefs.setString(_userKey, userData);
   }
 
-  Future<UserModel?> getUser() async {
+  Future<FirebaseUserModel?> getUser() async {
     final prefs = await SharedPreferences.getInstance();
     final userData = prefs.getString(_userKey);
     if (userData == null) return null;
 
     final Map<String, dynamic> json = jsonDecode(userData);
-    return UserModel(
+    return FirebaseUserModel(
       uid: json['uid'],
       email: json['email'],
       displayName: json['displayName'],

@@ -1,11 +1,10 @@
 import 'dart:io';
-
 import 'package:zeow_driver/data/responses/users/store_user_api_response.dart';
-import 'package:zeow_driver/domain/repositories/user_api_repository.dart';
+import 'package:zeow_driver/domain/repositories/store_user_api_repository.dart';
 
 import '../../datasources/users/store_user_api_service.dart';
 
-class UserApiRepositoryImpl implements UserApiRepository {
+class UserApiRepositoryImpl implements StoreUserApiRepository {
   final StoreUserApiService apiService;
 
   UserApiRepositoryImpl(this.apiService);

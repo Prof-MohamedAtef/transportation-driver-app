@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../state/auth_state.dart';
+import '../viewmodel/auth/system_auth_view_model.dart';
 import '../widgets/flutter_toast_widget.dart';
 
 class SignInPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _SignInScreenState extends State<SignInPage> {
         appBar: AppBar(
           title: const Text('Sign In'),
         ),
-        body: Consumer<AuthViewModel>(builder: (context, authViewModel, child) {
+        body: Consumer<SystemAuthViewModel>(builder: (context, authViewModel, child) {
           if (authViewModel.state is AuthLoading) {
             return const Center(child: CircularProgressIndicator(
               backgroundColor: Colors.yellow,
@@ -54,7 +55,7 @@ class _SignInScreenState extends State<SignInPage> {
         }));
   }
 
-  Widget signInForm(AuthViewModel authViewModel) {
+  Widget signInForm(SystemAuthViewModel authViewModel) {
     return Form(
         key: formKey,
         child: Padding(
@@ -133,12 +134,12 @@ class _SignInScreenState extends State<SignInPage> {
                 ,
                 onPressed: () async {
                   // Call Google sign-in logic in the ViewModel
-                  await authViewModel.signInWithGoogle();
-                  if (authViewModel.state is AuthFailure) {
-                    setState(() {
-                      errorMessage = (authViewModel.state as AuthFailure).message;
-                    });
-                  }
+                  // await authViewModel.signInWithGoogle();
+                  // if (authViewModel.state is AuthFailure) {
+                  //   setState(() {
+                  //     errorMessage = (authViewModel.state as AuthFailure).message;
+                  //   });
+                  // }
                 },
                 label: const Text('Sign In with Google'),
                 style: ElevatedButton.styleFrom(
@@ -154,7 +155,7 @@ class _SignInScreenState extends State<SignInPage> {
 
 Future<void> signInWithEmail(
     String email, String password, BuildContext context) async {
-  Provider.of<AuthViewModel>(context, listen: false).signIn(
+  Provider.of<SystemAuthViewModel>(context, listen: false).signIn(
     email,
     password,
     context

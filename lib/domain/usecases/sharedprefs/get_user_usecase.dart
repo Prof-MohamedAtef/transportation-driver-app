@@ -1,4 +1,4 @@
-import '../../../data/models/user_model.dart';
+import '../../../data/models/firebase_user_model.dart';
 import '../../repositories/user_shared_prefs_repository.dart';
 
 class GetUserSharedPrefsUseCase {
@@ -6,7 +6,7 @@ class GetUserSharedPrefsUseCase {
 
   GetUserSharedPrefsUseCase(this.userRepository);
 
-  Future<UserModel?> call() async {
+  Future<FirebaseUserModel?> call() async {
     return await userRepository.getUser();
   }
 }

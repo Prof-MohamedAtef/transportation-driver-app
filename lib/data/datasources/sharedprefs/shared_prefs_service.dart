@@ -14,6 +14,7 @@ class SharedPreferencesService {
       'email': user.email,
       'displayName': user.displayName,
       'photoUrl': user.photoUrl,
+      'token': user.token
     });
     await prefs.setString(_userKey, userData);
   }
@@ -29,6 +30,7 @@ class SharedPreferencesService {
       email: json['email'],
       displayName: json['displayName'],
       photoUrl: json['photoUrl'],
+      token: json['token']
     );
   }
 

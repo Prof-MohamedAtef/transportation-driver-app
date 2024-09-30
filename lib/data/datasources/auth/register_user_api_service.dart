@@ -25,15 +25,21 @@ class RegisterUserApiService{
         body: jsonEncode(driver.toJson()),
       );
 
-      if (response.statusCode == 200 || response.statusCode == 422) {
+      if (response.statusCode == 200) {
         // Parse the response body to RegisterUserApiResponse
         final responseData = jsonDecode(response.body);
-        return RegisterUserApiResponse.fromJson(responseData);
-      } else {
-        throw Exception('Failed to register user: ${response.statusCode}');
+        return RegisterUserApiResponse.successFromJson(responseData);
+      } else if(response.statusCode == 422) {
+        final responseData = jsonDecode(response.body);
+        return RegisterUserApiResponse.failureFromJson(responseData);
+      }else {
+        final responseData = jsonDecode(response.body);
+        return RegisterUserApiResponse.failureFromJson(responseData);
       }
     } catch (e) {
-      throw Exception('Error registering user: $e');
+      print('Error: $e');
+      final responseData = jsonDecode(e.toString());
+      return RegisterUserApiResponse.failureFromJson(responseData);
     }
   }
 }

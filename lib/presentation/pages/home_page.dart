@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:zeow_driver/presentation/viewmodel/user/user_shared_prefs_view_model.dart';
 import 'package:zeow_driver/presentation/widgets/current_where_widget.dart';
 import 'package:zeow_driver/presentation/widgets/my_drawer_widget.dart';
-import '../viewmodel/auth/auth_viewmodel.dart';
 import '../widgets/add_home_widget.dart';
 import '../widgets/category_timing_selection.dart';
 import '../widgets/cities_widget.dart';

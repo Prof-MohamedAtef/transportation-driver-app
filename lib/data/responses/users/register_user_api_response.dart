@@ -6,39 +6,47 @@
 // }
 
 class Errors {
-  final List<String> email;
+  final List<String>? email;
 
-  Errors({required this.email});
+  Errors({this.email});
 
+  // Factory method to parse errors from JSON
   factory Errors.fromJson(Map<String, dynamic> json) {
     return Errors(
-      email: List<String>.from(json['email'] ?? []),
+      email: json['email'] != null ? List<String>.from(json['email']) : null,
     );
+  }
+
+  // Convert errors back to JSON if needed
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+    };
   }
 }
 
 class RegisterUserApiResponse {
   final bool success;
   final int code;
-  final String? token;
-  final String? tokenType;
   final Errors? errors;
 
-  RegisterUserApiResponse({
-    required this.success,
-    required this.code,
-    this.token,
-    this.tokenType,
-    this.errors,
-  });
+  RegisterUserApiResponse(
+      {required this.success, required this.code, this.errors});
 
-  factory RegisterUserApiResponse.fromJson(Map<String, dynamic> json) {
+  factory RegisterUserApiResponse.successFromJson(Map<String, dynamic> json) {
     return RegisterUserApiResponse(
       success: json['success'],
       code: json['code'],
-      token: json['token'],
-      tokenType: json['token_type'],
-      errors: json['errors'] != null ? Errors.fromJson(json['errors']) : null,
+    );
+  }
+
+  factory RegisterUserApiResponse.failureFromJson(Map<String, dynamic> json) {
+    return RegisterUserApiResponse(
+      success: json['success'],
+      code: json['code'],
+      errors: json['errors'] != null
+          ? Errors.fromJson(json['errors'] as Map<String, dynamic>)
+          : null,
     );
   }
 }

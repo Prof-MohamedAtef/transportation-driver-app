@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../data/models/car/car_model.dart';
 import '../../../domain/usecases/cars/get_cars_use_case.dart';
-import '../../state/auth_state.dart';
 import '../../state/car_types_state.dart';
 
 class CarViewModel extends ChangeNotifier {

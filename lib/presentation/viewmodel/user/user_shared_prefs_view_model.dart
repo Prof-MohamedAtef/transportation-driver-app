@@ -18,7 +18,6 @@ class UserViewModel extends ChangeNotifier {
   Future<void> saveUser(FirebaseUserModel user) async {
     await saveUserUseCase(user);
     _user = user;
-    notifyListeners();
   }
 
   Future<void> loadUser() async {

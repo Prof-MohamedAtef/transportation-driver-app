@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zeow_driver/presentation/routes/routes.dart';
-import 'package:zeow_driver/presentation/viewmodel/auth/auth_viewmodel.dart';
-
-import '../state/auth_state.dart';
+import '../viewmodel/auth/login_user_view_model.dart';
 import '../viewmodel/user/user_shared_prefs_view_model.dart';
 
 class MyDrawerWidget extends StatelessWidget {
@@ -16,7 +14,7 @@ class MyDrawerWidget extends StatelessWidget {
 }
 
 Widget drawerWidget(BuildContext context) {
-  final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+  final authViewModel = Provider.of<LoginAuthViewModel>(context, listen: false);
   final userViewModel = Provider.of<UserViewModel>(context, listen: false);
   userViewModel.loadUser();
   // authViewModel.fetchCurrentUser();
@@ -86,10 +84,10 @@ Widget drawerWidget(BuildContext context) {
         ListTile(
           leading: const Icon(Icons.payment),
           title: const Text('Sign Out'),
-          onTap: () {
+          onTap: () async {
             // Navigate to the Home page
-            authViewModel.signOut();
-            Navigator.pushNamed(context, AppRoutes.splash);
+            await authViewModel.signOut();
+            Navigator.pushReplacementNamed(context, AppRoutes.splash);
           },
         ),
       ],

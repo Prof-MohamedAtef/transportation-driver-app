@@ -4,13 +4,12 @@ import 'package:zeow_driver/presentation/pages/add_trip_screen.dart';
 import 'package:zeow_driver/presentation/pages/forgot_password_page.dart';
 import 'package:zeow_driver/presentation/pages/location_screen.dart';
 import 'package:zeow_driver/presentation/pages/onboading_page.dart';
-import 'package:zeow_driver/presentation/pages/sign_up_page.dart';
 import 'package:zeow_driver/presentation/pages/signin_page.dart';
 import 'package:zeow_driver/presentation/pages/update_user_profile.dart';
 import 'package:zeow_driver/presentation/pages/verification_phase_screen.dart';
 
 import '../pages/home_page.dart';
-import '../pages/new_sign_up_screen.dart';
+import '../pages/sign_up_screen.dart';
 import '../pages/splash_page.dart';
 import '../pages/trips_list_screen.dart';
 
@@ -19,6 +18,7 @@ class AppRoutes {
   static const signInScreen = '/SignIn';
   static const signUpScreen = '/SignIUp';
   static const forgotPasswordScreen = '/ForgotPassword';
+  static const resetPasswordScreen = '/ResetPassword';
   static const onBoardingScreen = '/OnBoarding';
   static const locationScreen = '/Location';
   static const homeScreen = '/Home';
@@ -32,7 +32,7 @@ class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case signInScreen:
-        return MaterialPageRoute(builder: (_) => const SignInPage());
+        return MaterialPageRoute(builder: (_) => SignInPage());
       case signUpScreen:
         return MaterialPageRoute(builder: (_) => SignupScreen());
       case homeScreen:

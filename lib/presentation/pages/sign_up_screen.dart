@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../routes/routes.dart';
-import '../state/auth_state.dart';
 import '../state/register_auth_state.dart';
-import '../viewmodel/auth/system_auth_view_model.dart';
+import '../viewmodel/auth/register_user_view_model.dart';
 import '../widgets/flutter_toast_widget.dart';
 class SignupScreen extends StatefulWidget {
   @override
@@ -21,7 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Sign Up')),
-      body: Consumer<SystemAuthViewModel>(builder: (context, authViewModel, child) {
+      body: Consumer<RegisterAuthViewModel>(builder: (context, authViewModel, child) {
         if (authViewModel.state is RegisterUserLoading) {
           return const Center(
             child: CircularProgressIndicator(
@@ -31,7 +30,8 @@ class _SignupScreenState extends State<SignupScreen> {
           );
         } else if (authViewModel.state is RegisterUserSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.pushNamed(context, AppRoutes.signInScreen); // Navigate after success
+            Navigator.pushReplacementNamed(context, AppRoutes.signInScreen); // Navigate after success
+            authViewModel.resetState();
           });
           showToastMessage("Sign up successful!", Colors.pink);
           return const Center(child: Text("Sign Up successful!"));
@@ -45,7 +45,7 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget signUpForm(SystemAuthViewModel systemAuthViewModel) {
+  Widget signUpForm(RegisterAuthViewModel systemAuthViewModel) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Form(

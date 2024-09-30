@@ -4,7 +4,7 @@ class Driver{
   final String password;
 
   Driver({
-    required this.name,
+    this.name,
     required this.email,
     required this.password,
   });

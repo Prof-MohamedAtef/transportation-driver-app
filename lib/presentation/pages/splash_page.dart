@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-import 'package:zeow_driver/presentation/viewmodel/auth/auth_viewmodel.dart';
 
 import '../routes/routes.dart';
 import '../viewmodel/user/user_shared_prefs_view_model.dart';
@@ -57,9 +56,9 @@ class _SplashScreenState extends State<SplashScreen> {
     final userViewModel = Provider.of<UserViewModel>(context, listen: false);
     await userViewModel.loadUser();
     if (userViewModel.user != null){
-      Navigator.pushNamed(context, AppRoutes.homeScreen);
+      Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
     }else{
-      Navigator.pushNamed(context, AppRoutes.signInScreen);
+      Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
     }
   }
 }

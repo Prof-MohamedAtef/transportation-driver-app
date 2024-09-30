@@ -5,14 +5,17 @@ import '../routes/routes.dart';
 class CustomTextField extends StatefulWidget {
   final String title, hint;
   final Function(String)? onChanged;
-  bool obscureText;
+  final bool obscureText;
+  final TextEditingController controller;
 
-  CustomTextField(
-      {super.key,
-      required this.title,
-      this.onChanged,
-      required this.obscureText,
-      required this.hint,});
+  CustomTextField({
+    super.key,
+    required this.title,
+    this.onChanged,
+    required this.obscureText,
+    required this.hint,
+    required this.controller, // Pass the controller explicitly
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -23,10 +26,8 @@ bool isValidEmail(String email) {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  final TextEditingController nameCon = TextEditingController();
-  final TextEditingController emailCon = TextEditingController();
-  final TextEditingController passCon = TextEditingController();
   bool showPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,24 +43,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
         TextFormField(
           validator: (value) {
             if (widget.title == 'email') {
-              if (value == Null) {
-                return 'Plaese ENter your Email';
-              } else if (!isValidEmail(value!)) {
-                return 'please enter a valid email ';
+              if (value == null || value.isEmpty) {
+                return 'Please enter your Email';
+              } else if (!isValidEmail(value)) {
+                return 'Please enter a valid email';
               }
             }
             return null;
           },
-          controller: widget.title == 'email' ? emailCon : passCon,
+          controller: widget.controller,
+          // Use passed controller
           cursorColor: const Color.fromARGB(255, 255, 255, 255),
-          obscureText: widget.obscureText,
+          obscureText: widget.title == 'password' && !showPassword,
           decoration: InputDecoration(
             suffixIcon: widget.title == 'password'
                 ? IconButton(
                     onPressed: () {
                       setState(() {
                         showPassword = !showPassword;
-                        widget.obscureText = !widget.obscureText;
                       });
                     },
                     icon: Icon(

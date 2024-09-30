@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../data/models/firebase_user_model.dart';
 
 abstract class AuthState {}
@@ -9,13 +7,23 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  final FirebaseUserModel user;
-  AuthSuccess(this.user);
+  final String? token;
+  final String? tokenType;
+  final FirebaseUserModel? user;
+
+  AuthSuccess({this.token, this.tokenType, this.user});
 }
 
 class AuthFailure extends AuthState {
   final String message;
+
   AuthFailure(this.message);
   factory AuthFailure.canceledByUser() => AuthFailure('Sign-in canceled by user');
   factory AuthFailure.serverError(String error) => AuthFailure('Server error: $error');
+}
+
+class AuthSignOutSuccess extends AuthState {}
+class AuthSignOutFailure extends AuthState {
+  final String message;
+  AuthSignOutFailure(this.message);
 }

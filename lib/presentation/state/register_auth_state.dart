@@ -5,10 +5,7 @@ class RegisterUserInitial extends RegisterUserState {}
 class RegisterUserLoading extends RegisterUserState {}
 
 class RegisterUserSuccess extends RegisterUserState {
-  final String token;
-  final String tokenType;
-
-  RegisterUserSuccess(this.token, this.tokenType);
+  RegisterUserSuccess();
 }
 
 class RegisterUserFailure extends RegisterUserState {

@@ -15,15 +15,20 @@ class CarViewModel extends ChangeNotifier {
   CarViewModel(this.getCarTypesUseCase);
 
   Future<void> fetchCarTypes() async {
+    if (_state is CarCallLoading || _state is CarCallSuccess) {
+      return; // Avoid multiple API calls
+    }
+
     _state = CarCallLoading();
     notifyListeners();
 
     try {
       cars = await getCarTypesUseCase();
       _state = CarCallSuccess(cars);
+      print('State updated to CarCallSuccess with ${cars.length} cars');
+      notifyListeners();
     } catch (e) {
       _state = CarCallFailure(e.toString());
-    } finally {
       notifyListeners();
     }
   }

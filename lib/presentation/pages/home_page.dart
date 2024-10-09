@@ -10,7 +10,6 @@ import '../widgets/greetings_widget.dart';
 import '../widgets/home_card_widget.dart';
 import '../widgets/lets_go_widget.dart';
 import '../widgets/submit_button.dart';
-import '../widgets/white_rounded_home_icon.dart';
 import '../widgets/white_rounded_icon.dart';
 
 class HomeScreen extends StatelessWidget {

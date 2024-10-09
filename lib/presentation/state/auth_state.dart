@@ -9,9 +9,10 @@ class AuthLoading extends AuthState {}
 class AuthSuccess extends AuthState {
   final String? token;
   final String? tokenType;
+  final int? isVerified;
   final FirebaseUserModel? user;
 
-  AuthSuccess({this.token, this.tokenType, this.user});
+  AuthSuccess({this.token, this.tokenType, this.user, this.isVerified});
 }
 
 class AuthFailure extends AuthState {

@@ -10,7 +10,7 @@ class LoginUserApiUseCase {
   Future<LoginUserApiResponse> execute({
     required String email,
     required String password,
-  }) {
+  }) async {
     return loginApiRepository.login(email: email, password: password);
   }
 }

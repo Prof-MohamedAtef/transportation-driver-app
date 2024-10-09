@@ -33,8 +33,8 @@ class LoginAuthViewModel extends ChangeNotifier {
       final response = await useCase.execute(email: email, password: password);
       if (response.success) {
         _state =
-            AuthSuccess(token: response.token, tokenType: response.token_type);
-        await _userViewModel.saveUser(FirebaseUserModel(token: response.token));
+            AuthSuccess(token: response.token, tokenType: response.token_type, isVerified: response.isVerified);
+        await _userViewModel.saveUser(FirebaseUserModel(token: response.token, isVerified: response.isVerified));
         notifyListeners();
       } else {
         final errors = response.message ?? ['An unknown error occurred'];

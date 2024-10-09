@@ -6,13 +6,15 @@ class FirebaseUserModel {
   final String? displayName;
   final String? photoUrl;
   final String? token;
+  final int? isVerified;
 
   FirebaseUserModel({
     this.uid,
     this.displayName,
     this.email,
     this.photoUrl,
-    this.token
+    this.token,
+    this.isVerified
   });
 
   // Factory constructor to map Firebase User to UserModel

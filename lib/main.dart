@@ -1,6 +1,7 @@
 import 'package:zeow_driver/data/datasources/auth/login_user_api_service.dart';
 import 'package:zeow_driver/data/datasources/trip/trip_api_service.dart';
 import 'package:zeow_driver/data/repositories/trip/trip_repository_impl.dart';
+import 'package:zeow_driver/domain/repositories/trip_repository.dart';
 import 'package:zeow_driver/domain/usecases/trip/insert_trip_usecase.dart';
 import 'package:zeow_driver/domain/usecases/users/reset_password_use_case.dart';
 import 'package:zeow_driver/domain/usecases/users/store_user_api_use_case.dart';
@@ -52,56 +53,83 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (_) => ResetPasswordViewModel(ResetPasswordUseCase(
-                (ResetPasswordRepositoryImpl(ResetPasswordApiService()))))),
-        ChangeNotifierProvider<UserViewModel>(
-          create: (_) => UserViewModel(
-            SaveUserSharedPrefsUseCase(
-                UserRepositoryImpl(SharedPreferencesService())),
-            GetUserSharedPrefsUseCase(
-                UserRepositoryImpl(SharedPreferencesService())),
-            ClearUserSharedPrefsUseCase(
-                UserRepositoryImpl(SharedPreferencesService())),
-          ),
+        // Provide TripApiService first
+        Provider<TripApiService>(
+          create: (_) => TripApiService(),
         ),
-        ChangeNotifierProvider(
-            create: (context) => LoginAuthViewModel(
-                LoginUserApiUseCase(
-                    (LoginApiRepositoryImpl(LoginUserApiService()))),
-                Provider.of<UserViewModel>(context, listen: false),
-                AuthRepository(GoogleSignInUseCase()))),
-        ChangeNotifierProvider(
-            create: (_) => UserApiViewModel(StoreUserApiUseCase(
-                (UserApiRepositoryImpl(StoreUserApiService()))))),
-        ChangeNotifierProvider(
-            create: (_) => AddCarViewModel(
-                AddCarUseCase((CarRepositoryImpl(CarsApiService()))))),
-        ChangeNotifierProvider(
-            create: (_) => CarViewModel(
-                GetCarTypesUseCase((CarRepositoryImpl(CarsApiService()))))),
-        ChangeNotifierProvider(
-            create: (context) => RegisterAuthViewModel(
-                RegisterUserApiUseCase(
-                    (RegisterApiRepositoryImpl(RegisterUserApiService()))),
-                Provider.of<UserViewModel>(context, listen: false))),
-        // Create AuthViewModel after UserViewModel
-        ChangeNotifierProvider(
-            create: (_) => LocationViewModel(LocationService())),
-        // Providing TripApiService for API calls
-        Provider<TripApiService>(create: (_) => TripApiService()),
-
-        // Providing TripRepositoryImpl as the concrete implementation of TripRepository
+        // Provide TripRepositoryImpl using ProxyProvider
         ProxyProvider<TripApiService, TripRepositoryImpl>(
           update: (_, apiService, __) => TripRepositoryImpl(apiService),
         ),
-        // Providing InsertTripUseCase with the injected repository
+        // Provide InsertTripUseCase using ProxyProvider
         ProxyProvider<TripRepositoryImpl, InsertTripUseCase>(
           update: (_, tripRepository, __) => InsertTripUseCase(tripRepository),
         ),
-        // Providing TripViewModel with the injected use case
+        // Provide TripViewModel with InsertTripUseCase and UserViewModel
+        ChangeNotifierProvider<UserViewModel>(
+          create: (_) => UserViewModel(
+            SaveUserSharedPrefsUseCase(
+              UserRepositoryImpl(SharedPreferencesService()),
+            ),
+            GetUserSharedPrefsUseCase(
+              UserRepositoryImpl(SharedPreferencesService()),
+            ),
+            ClearUserSharedPrefsUseCase(
+              UserRepositoryImpl(SharedPreferencesService()),
+            ),
+          ),
+        ),
         ChangeNotifierProvider<TripViewModel>(
-          create: (context) => TripViewModel(context.read<InsertTripUseCase>()),
+          create: (context) => TripViewModel(
+            context.read<InsertTripUseCase>(),
+            Provider.of<UserViewModel>(context, listen: false),
+            context.read<TripRepositoryImpl>(), // Now this is properly provided
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ResetPasswordViewModel(
+            ResetPasswordUseCase(
+              ResetPasswordRepositoryImpl(ResetPasswordApiService()),
+            ),
+          ),
+        ),
+
+        ChangeNotifierProvider(
+          create: (context) => LoginAuthViewModel(
+            LoginUserApiUseCase(
+              LoginApiRepositoryImpl(LoginUserApiService()),
+            ),
+            Provider.of<UserViewModel>(context, listen: false),
+            AuthRepository(GoogleSignInUseCase()),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UserApiViewModel(
+            StoreUserApiUseCase(
+              UserApiRepositoryImpl(StoreUserApiService()),
+            ),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AddCarViewModel(
+            AddCarUseCase(CarRepositoryImpl(CarsApiService())),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CarViewModel(
+            GetCarTypesUseCase(CarRepositoryImpl(CarsApiService())),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RegisterAuthViewModel(
+            RegisterUserApiUseCase(
+              RegisterApiRepositoryImpl(RegisterUserApiService()),
+            ),
+            Provider.of<UserViewModel>(context, listen: false),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LocationViewModel(LocationService()),
         ),
       ],
       child: const MyApp(),

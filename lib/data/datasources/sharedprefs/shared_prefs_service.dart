@@ -14,7 +14,8 @@ class SharedPreferencesService {
       'email': user.email,
       'displayName': user.displayName,
       'photoUrl': user.photoUrl,
-      'token': user.token
+      'token': user.token,
+      'isVerified': user.isVerified
     });
     await prefs.setString(_userKey, userData);
   }
@@ -26,12 +27,12 @@ class SharedPreferencesService {
 
     final Map<String, dynamic> json = jsonDecode(userData);
     return FirebaseUserModel(
-      uid: json['uid'],
-      email: json['email'],
-      displayName: json['displayName'],
-      photoUrl: json['photoUrl'],
-      token: json['token']
-    );
+        uid: json['uid'],
+        email: json['email'],
+        displayName: json['displayName'],
+        photoUrl: json['photoUrl'],
+        token: json['token'],
+        isVerified: json['isVerified']);
   }
 
   Future<void> clearUser() async {

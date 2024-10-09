@@ -84,7 +84,7 @@ class ResetPasswordViewModel extends ChangeNotifier {
     required String passwordConfirm,
   }) async  {
     if (validateForm()) {
-      _state = ResetPasswordStateLoading();
+      _state = ResetPasswordStateLoading(); // show CircularProgressIndicator
       notifyListeners();
 
       try{

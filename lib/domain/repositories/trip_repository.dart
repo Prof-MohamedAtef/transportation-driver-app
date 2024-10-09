@@ -1,5 +1,6 @@
-import '../etities/trip.dart';
+import 'package:zeow_driver/data/models/trips/trip_model.dart';
+import '../../data/responses/trips/add_trip_api_response.dart';
 
 abstract class TripRepository {
-  Future<bool> insertTrip(Trip trip);
+  Future<TripResponse> insertTrip(TripModel trip, String? token);
 }

@@ -14,44 +14,37 @@ class LoginUserApiService {
   }) async {
     var driver = Driver(email: email, password: password);
     final uri = Uri.parse('$baseUrl/login');
+
     try {
       final response = await http.post(
         uri,
         headers: {
           'Content-Type': 'application/json',  // Specify the content type as JSON
+          'Accept': 'application/json'
         },
         body: jsonEncode(driver.toJson()),
       );
 
-      if (response.statusCode == 200 || response.statusCode == 422) {
-        if(response.statusCode == 200){
-          try {
-            final responseData = jsonDecode(response.body);
-            print('Response Data: $responseData');
-            return LoginUserApiResponse.successFromJson(responseData);
-          } on FormatException catch (e) {
-            // If decoding fails, catch the FormatException
-            print('Error: Invalid JSON format. ${e.message}');
-            // Handle the non-JSON response here, possibly log it for debugging
-            print('Raw response: ${response.body}');
-          }
-        }else {
-          // Handle other response codes (e.g., 400, 404, 500)
-          print('Error: Server returned ${response.statusCode}');
-          print('Response Body: ${response.body}');
-        }
-        // Parse the response body to RegisterUserApiResponse
-        final responseData = jsonDecode(response.body);
+      final responseData = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        print('Response Data: $responseData');
         return LoginUserApiResponse.successFromJson(responseData);
+      } else if (response.statusCode == 422) {
+        print('Validation error: $responseData');
+        return LoginUserApiResponse.failureFromJson(responseData);
       } else {
-        final responseData = jsonDecode(response.body);
+        print('Unexpected error: ${response.statusCode}');
         return LoginUserApiResponse.failureFromJson(responseData);
       }
+
     } catch (e) {
-      // Handle any other exceptions like network issues, etc.
       print('Error: $e');
-      final responseData = jsonDecode(e.toString());
-      return LoginUserApiResponse.failureFromJson(responseData);
+      return LoginUserApiResponse.failureFromJson({
+        'success': false,
+        'message': 'An unexpected error occurred',
+        'errors': {}
+      });
     }
   }
 }

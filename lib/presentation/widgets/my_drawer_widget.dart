@@ -47,23 +47,18 @@ Widget drawerWidget(BuildContext context) {
             ],
           ),
         ),
+        if (userViewModel.user?.isVerified == 1)
         ListTile(
           leading: const Icon(Icons.trip_origin),
-          title: const Text('Verification'),
+          title: const Text('Add Drivers'),
           onTap: () {
             // Navigate to the Home page
             Navigator.pushNamed(context, AppRoutes.verificationScreen);
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.wallet),
-          title: const Text('Add Vehicle'),
-          onTap: () {
-            // Navigate to the Home page
-            Navigator.pushNamed(context, AppRoutes.addBusScreen);
-          },
-        ),
-        ListTile(
+        // Conditionally show the "Add Trip" tile
+        if (userViewModel.user?.isVerified == 1)
+          ListTile(
           leading: const Icon(Icons.payment),
           title: const Text('Add Trip'),
           onTap: () {
@@ -71,6 +66,16 @@ Widget drawerWidget(BuildContext context) {
             Navigator.pushNamed(context, AppRoutes.addTripScreen);
           },
         ),
+
+        if (userViewModel.user?.isVerified == 1)
+          ListTile(
+            leading: const Icon(Icons.payment),
+            title: const Text('Add Bus'),
+            onTap: () {
+              // Navigate to the Home page
+              Navigator.pushNamed(context, AppRoutes.addBusScreen);
+            },
+          ),
 
         ListTile(
           leading: const Icon(Icons.payment),

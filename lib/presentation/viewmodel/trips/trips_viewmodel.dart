@@ -1,34 +1,47 @@
 import 'package:flutter/cupertino.dart';
-
-import '../../../domain/etities/trip.dart';
+import 'package:zeow_driver/data/models/firebase_user_model.dart';
+import 'package:zeow_driver/data/models/trips/trip_model.dart';
+import '../../../domain/repositories/trip_repository.dart';
 import '../../../domain/usecases/trip/insert_trip_usecase.dart';
+import '../../state/add_trip_state.dart';
+import '../user/user_shared_prefs_view_model.dart';
 
 class TripViewModel extends ChangeNotifier {
+  final TripRepository tripRepository;
+  final UserViewModel _userViewModel;
+
   final InsertTripUseCase insertTripUseCase;
-  bool _isLoading = false;
-  String? _errorMessage;
-  bool _isSuccess = false;
+  late AuthState _state = AddTripInitial();
 
-  TripViewModel(this.insertTripUseCase);
+  AuthState get state => _state;
 
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
-  bool get isSuccess => _isSuccess;
+  TripViewModel(
+      this.insertTripUseCase, this._userViewModel, this.tripRepository);
 
-  Future<void> insertTrip(Trip trip) async {
-    _isLoading = true;
-    _errorMessage = null;
+  Future<void> insertTrip(TripModel trip) async {
+    _state = AddTripLoading();
     notifyListeners();
 
-    bool success = await insertTripUseCase.call(trip);
-    if (success) {
-      _isSuccess = true;
-    } else {
-      _errorMessage = 'Failed to create trip';
-      _isSuccess = false;
+    await _userViewModel.loadUser();
+    FirebaseUserModel? user = _userViewModel.user;
+    String? token = user?.token;
+
+    try {
+      final response = await insertTripUseCase.execute(trip, token);
+      if (response.success) {
+        _state = AddTripSuccess(
+            success: response.success,
+            message: response.message,
+            data: response.data);
+        notifyListeners();
+      } else {
+        final errors = response.message ?? ['An unknown error occurred'];
+        _state = AddTripFailure(errors.toString());
+        notifyListeners();
+      }
+    } catch (e) {
+      _state = AddTripFailure('Error: $e');
+      notifyListeners();
     }
-
-    _isLoading = false;
-    notifyListeners();
   }
 }

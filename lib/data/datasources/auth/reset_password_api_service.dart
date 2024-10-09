@@ -15,29 +15,46 @@ class ResetPasswordApiService {
     required String password,
     required String passwordConfirm,
   }) async {
-    var resetPassword = ResetPassword(email, password, passwordConfirm);
+    // var resetPassword = ResetPassword(email, password, passwordConfirm);
+    final body = jsonEncode({
+      'email': email,
+      'password': password,
+      'password_confirmation': passwordConfirm,
+    });
+
     final uri = Uri.parse('$baseUrl/password/reset');
     try {
       final response = await http.post(
         uri,
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           // Specify the content type as JSON
         },
-        body: jsonEncode(resetPassword.toJson()),
+        body: jsonEncode(body),
       );
 
-      if (response.statusCode == 200) {
-        try {
-          final responseData = jsonDecode(response.body);
-          return ResetPasswordApiResponse.successFromJson(responseData);
-        } on FormatException catch (e) {
-          final responseData = jsonDecode(response.body);
-          return ResetPasswordApiResponse.failureFromJson(responseData);
-        }
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final jsonResponse = jsonDecode(response.body);
+        final resetPasswordResponse =
+            ResetPasswordApiResponse.successFromJson(jsonResponse);
+        print('Success: ${resetPasswordResponse.message}');
+        return resetPasswordResponse;
+      } else if (response.statusCode == 400 || response.statusCode == 422) {
+        // Failure response
+        final jsonResponse = jsonDecode(response.body);
+        final resetPasswordResponse =
+            ResetPasswordApiResponse.failureFromJson(jsonResponse);
+        print('Failure: ${resetPasswordResponse.message}');
+        print('Errors: ${resetPasswordResponse.errors?.password}');
+        return resetPasswordResponse;
       } else {
-        final responseData = jsonDecode(response.body);
-        return ResetPasswordApiResponse.failureFromJson(responseData);
+        final jsonResponse = jsonDecode(response.body);
+        // Handle unexpected responses
+        print('Unexpected response: ${response.statusCode}');
+        final resetPasswordResponse =
+            ResetPasswordApiResponse.failureFromJson(jsonResponse);
+        return resetPasswordResponse;
       }
     } catch (e) {
       // Handle any other exceptions like network issues, etc.

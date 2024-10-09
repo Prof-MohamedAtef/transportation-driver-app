@@ -13,8 +13,8 @@ import '../state/signin_auth_state.dart';
 import '../viewmodel/user/user_shared_prefs_view_model.dart';
 import '../widgets/flutter_toast_widget.dart';
 
-class SignInPage extends StatefulWidget {
-  SignInPage({Key? key}) : super(key: key);
+class SignInScreen extends StatefulWidget {
+  SignInScreen({Key? key}) : super(key: key);
 
   static const String id = 'sign_in';
 
@@ -22,7 +22,7 @@ class SignInPage extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInPage> {
+class _SignInScreenState extends State<SignInScreen> {
   final formKey = GlobalKey<FormState>();
   late TextEditingController emailController;
   late TextEditingController passwordController;
@@ -80,8 +80,7 @@ class _SignInScreenState extends State<SignInPage> {
                   //     color: Colors.pink,
                   //   ),
                   // );
-                } else if (authViewModel.state is AuthSuccess &&
-                    !_isNavigating) {
+                } else if (authViewModel.state is AuthSuccess && !_isNavigating) {
                   _isNavigating = true;
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     // Adding a short delay before navigating to avoid the progress dialog reappearing
